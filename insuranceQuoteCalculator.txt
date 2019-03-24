@@ -1,0 +1,85 @@
+import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.Period;
+
+public class Main {
+
+    public static void main(String[] args){
+        double carPrice = carSelect();
+        System.out.println("CAR PRICE: " + carPrice);
+        double customerAge = getAge();
+        System.out.println("YEARS OLD: " + customerAge);
+        double average = (1.0/18.0);
+        double profit = 1.38;
+        double ageMultiplier;
+
+        if(customerAge < 18){
+            ageMultiplier = 1.6;
+        }else if(customerAge < 27){
+            ageMultiplier = 1.4;
+        }
+        else if(customerAge > 75){
+            ageMultiplier = 1.6;
+        }else if(customerAge > 65){
+            ageMultiplier = 1.4;
+        }else{
+            ageMultiplier = 1;
+        }
+        System.out.println("AGE MULTIPLIER: " + ageMultiplier);
+
+        double insuranceQuote = (((average*carPrice*profit)/12)*ageMultiplier);
+        System.out.println();
+        System.out.println("Your insurance is estimated at: " + insuranceQuote);
+    }
+
+    public static double carSelect(){ //gives price for your model of car.
+        System.out.println();
+        System.out.println("(Ford F150, Toyota Carola, Lamborghini Aventador)");
+        System.out.print("Enter Model: ");
+
+        Scanner car = new Scanner(System.in);
+        String name = car.nextLine();
+
+        double price;
+
+        if(name.equals("Ford F150")){
+            price = 35000;
+            return price;
+        }else if(name.equals("Toyota Carola")){
+            price = 25000;
+            return price;
+        }else if(name.equals("Lamborhini Aventador")){
+            price = 420000;
+            return price;
+        }else{
+            System.out.println("You did not enter a correct vehicle model, GOOD BYE!");
+            System.exit(0);
+        }
+        System.out.println("There was an error... (1)");
+        System.exit(0);
+        return 0;
+    }
+
+    public static double getAge(){ // gets the user's age in years.
+        System.out.println();
+        System.out.println("Please enter your date of birth as integers.");
+        System.out.print("Month: ");
+
+        Scanner Scan0 = new Scanner(System.in);
+        int month = Scan0.nextInt();
+
+        System.out.print("Day: ");
+        Scanner scan1 = new Scanner(System.in);
+        int day = scan1.nextInt();
+
+        System.out.print("Year: ");
+        Scanner scan2 = new Scanner(System.in);
+        int year = scan2.nextInt();
+
+        LocalDate birthDate = LocalDate.of(year, month, day);
+        LocalDate now = LocalDate.now();
+        double y = Period.between(birthDate, now).getYears();
+        return y;
+    }
+}
